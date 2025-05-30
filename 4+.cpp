@@ -97,9 +97,11 @@ void checkE(const double e) {
 }
 double sumN(const int n) {
     double sum = 0.0;
-    double term = 0.0; 
+    double term = 1.0; // Первый член
     for (int k = 1; k <= n; ++k) {
-        term = (k == 1) ? 1 : (-1.0 / k) * term; 
+        if (k > 1) {
+            term = (-1.0 / k) * term;
+        }
         sum += term;
     }
     return sum;
@@ -107,12 +109,12 @@ double sumN(const int n) {
 
 double sumE(const double e) {
     double sum = 0.0;
-    double term = 0.0; 
+    double term = 1.0; // Начальное значение
     int k = 1;
-    while (fabs(term) > e) {
-        term = (k == 1) ? 1 : (-1.0 / k) * term; 
+    while (fabs(term) >= e) {
         sum += term;
-        k++;
+        ++k;
+        term = (-1.0 / k) * term;
     }
     return sum;
 }
